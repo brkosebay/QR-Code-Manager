@@ -1,0 +1,10 @@
+# Node modules
+backend/node_modules/
+electronFrontend/node_modules/
+
+# Logs
+*.log
+
+# Other unnecessary files
+.DS_Store
+*.env

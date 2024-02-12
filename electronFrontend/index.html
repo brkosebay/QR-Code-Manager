@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EuFlex QR Code System</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <h1>QR Code Control Panel</h1>
+    <p id="path-selection-message">Please select the path to folder of the application backend.</p>
+    <button id="backend-select">Select Folder of Backend</button>
+    <button id="start-btn" disabled>Start Application</button>
+    <div id="docker-status">
+      <p>Application Status: <span id="docker-status-indicator">Checking...</span></p>
+  </div>
+    <button id="stop-btn" disabled>Stop Application</button>
+    <button id="rebuild-btn" disabled>(Re)Build Application Container</button>
+    <button id="rebuild-database-btn" disabled>(Re)Build Database</button>
+    <div id="rebuild-status"></div>
+    <script src="renderer.js"></script>
+  </body>
+</html>

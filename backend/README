@@ -1,0 +1,14 @@
+To run on new computer, running Windows:
+    1. Download & install "Docker Desktop" for Windows.
+    2. Install "QrCodeManager" from the file that has been provided.
+    3. Go into the folder "backend" and open the file .env with a text editor.
+    4. Open command propmt, and type in hostname. Copy the output.
+    5. In the file .env, replace the field HOSTNAME with the output of the previous step, adding .local to the end. Ex: If the previous step outputs DESKTOP-XXX, you need to write DESKTOP-XXX.local into the HOSTNAME field.
+    6. Open the QrCodeManager application.
+    7. Click on "Select Folder of Backend" and choose the folder "backend" that you have unpacked previously.
+    8. Click on "(Re)Build Application Container, wait for it to finish.
+    9. Click on "Start Application", wait for the Application Status to say "Running".
+    10. Click on "(Re)Build Database", click on "Yes", and wait for it to finish.
+    11. After these, steps, you can start using the application. Before quitting QrCodeManager, make sure to click on stop application and wait for the application status become stopped. 
+
+After rebooting the laptop/pc, make sure docker desktop is running before attempting to run the application.

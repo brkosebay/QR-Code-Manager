@@ -1,0 +1,27 @@
+{
+  "name": "qrcodemanager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir -mwl",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.brkosebay.qrcode",
+    "win": {
+      "target": "nsis"
+    },
+    "mac": {
+      "target": "dmg"
+    }
+  },
+  "author": "Berkay Kösebay",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^27.1.2",
+    "electron-builder": "^24.9.1",
+    "fix-path": "^4.0.0"
+  }
+}
