@@ -1,14 +1,14 @@
 const express = require('express');
 const respondentController = require('../controllers/respondentController');
 const Respondent = require('../models/respondentModel');
-const { readSheetAndProcessResponses, authenticateSheetsAPI } = require('../utils/googleSheetService');
+const { readExcelAndProcessResponses, authenticateGraphAPI } = require('../utils/microsoftExcelService');
 const router = express.Router();
 
 // Route to handle adding a respondent and sending a QR code
 router.post('/add-respondent', respondentController.addRespondent);
 
 router.get('/validate/:token', async (req, res) => {
-  const client = authenticateSheetsAPI();
+  const client = authenticateGraphAPI();
   const { token } = req.params;
 
   try {
@@ -16,8 +16,8 @@ router.get('/validate/:token', async (req, res) => {
     let respondent = await Respondent.findOne({ token });
 
     if (respondent) {
-      // Proceed to read sheet responses and update survey completion status if necessary
-      await readSheetAndProcessResponses(respondent.token, respondent.identifiers, client);
+      // Proceed to read Excel responses and update survey completion status if necessary
+      await readExcelAndProcessResponses(respondent.token, respondent.identifiers, client);
 
       // Re-fetch the respondent to get the updated data
       respondent = await Respondent.findOne({ token });
