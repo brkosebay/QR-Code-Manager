@@ -74,17 +74,31 @@ const readExcelAndProcessResponses = async (token, identifiers, client) => {
   const driveItemId = process.env.EXCEL_FILE_ITEM_ID;
   const worksheetName = process.env.EXCEL_WORKSHEET_NAME || 'Sheet1';
   const range = process.env.EXCEL_RANGE; // e.g., "D2:D" or "A2:A100"
+  const ownerUPN = process.env.EXCEL_OWNER_UPN;
+  const driveId = process.env.EXCEL_DRIVE_ID;
 
   if (!driveItemId || !range) {
     throw new Error(
-      'Missing Excel configuration. Please ensure EXCEL_FILE_ITEM_ID and EXCEL_RANGE are set in your .env file.'
+      'Missing Excel configuration. Ensure EXCEL_FILE_ITEM_ID and EXCEL_RANGE are set in your .env file.'
     );
   }
 
+  if (!ownerUPN && !driveId) {
+    throw new Error(
+      'Missing owner context. Set EXCEL_OWNER_UPN (preferred) or EXCEL_DRIVE_ID so the Graph client can find the workbook.'
+    );
+  }
+
+  const baseItemPath = ownerUPN
+    ? `/users/${ownerUPN}/drive/items/${driveItemId}`
+    : `/drives/${driveId}/items/${driveItemId}`;
+
   try {
     // Construct the API endpoint for reading Excel range
-    // Format: /me/drive/items/{item-id}/workbook/worksheets/{worksheet-name}/range(address='{range}')
-    const endpoint = `/me/drive/items/${driveItemId}/workbook/worksheets/${worksheetName}/range(address='${range}')`;
+    // Format: /users/{owner}/drive/items/{item-id}/workbook/worksheets/{worksheet-name}/range(…)
+    const endpoint = `${baseItemPath}/workbook/worksheets/${encodeURIComponent(
+      worksheetName
+    )}/range(address='${range}')`;
 
     // Make the API request to read the Excel range
     const response = await client.api(endpoint).get();
